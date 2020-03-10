@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.8]
 
     steps:
     - uses: actions/checkout@v2
@@ -17,10 +17,12 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
+      working-directory: ./components/dialog-acts
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Lint with flake8
+      working-directory: ./components/dialog-acts
       run: |
         pip install flake8
         # stop the build if there are Python syntax errors or undefined names
@@ -28,6 +30,7 @@ jobs:
         # exit-zero treats all errors as warnings. Allow lines of 120 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
     - name: Test with pytest
+      working-directory: ./components/dialog-acts
       run: |
         pip install pytest
-        pytest
+        pytest src/test
