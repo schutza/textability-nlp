@@ -1,2 +1,2 @@
-spacy
-spacy[lookups]
+spacy==2.2.3
+spacy-lookups-data==0.2.0
